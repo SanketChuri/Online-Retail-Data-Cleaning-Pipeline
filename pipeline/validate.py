@@ -40,20 +40,3 @@ def validate(df):
     if failed:
         raise ValueError(f"Data quality checks failed: {failed}")
     return checks
-
-
-import pandas as pd
-
-toy = pd.DataFrame({
-    "invoice":     ["1001", "1001"],
-    "stock_code":  ["22423", "22423"],
-    "description": ["REGENCY CAKESTAND 3 TIER", "REGENCY CAKESTND 3 TIER"],  # one typo
-    "qty":         [2, 2],
-})
-
-print("Duplicates BEFORE fixing names:", toy.duplicated().sum())   # 0  -> both rows survive
-
-# Fix the name, like standardise_descriptions does
-toy["description"] = "REGENCY CAKESTAND 3 TIER"
-
-print("Duplicates AFTER fixing names:", toy.duplicated().sum())    # 1  -> a new duplicate appeared!
